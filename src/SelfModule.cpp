@@ -1,18 +1,18 @@
-#include "StdAfx.h"
 #include "SelfModule.h"
+#include "TypeSelect.h"
 
 /**
  * 定义当前模块
  */
-static DefModule _Module(_T("SelfModuleList")
-	, _T("")
-	, [](){
+static DefModule _Module("SelfModuleList"
+	, ""
+	, []$(Constructor)(){
 	}
-	, [](){
+	, []$(Initializer)(){
 	}
-	, [](){
+	, []$(Uninitializer)(){
 	}
-	, [](){
+	, []$(Destructor)(){
 		SelfModuleList::DelInstance();
 	});
 
@@ -21,74 +21,62 @@ static DefModule _Module(_T("SelfModuleList")
  */
 DefModule::DefModule(StdString id
 	, StdString depends
-	, SelfFunction preinit
-	, SelfFunction init
-	, SelfFunction uninit
+	, SelfFunction constructor
+	, SelfFunction initializer
+	, SelfFunction uninitializer
 	, SelfFunction destructor)
 	: _destructor(destructor)
 {
 	SelfModuleList* list = SelfModuleList::GetInstance();
 
+	if(id.compare("SelfModuleList") == 0){
+		return;
+	}
+
+	ModuleWhere insPos = list->Begin();
+
 	size_t offset = 0;
-	size_t lastOffset = offset;
-	while ((offset = depends.find(';', lastOffset)) != -1)
+	size_t lastset = offset;
+	while ((offset = depends.find(';', lastset)) != -1)
 	{
-		StdString dep = depends.substr(lastOffset, offset - lastOffset);
-		
-		SelfModule& mod = list->FindModule(dep);
-		if (&mod == &SelfModuleList::_NullModule)
-		{
-			SelfModule module;
-			module._id = dep;
-			list->AddModule(module);
+		auto dep = depends.substr(lastset, offset - lastset);
+
+		auto where = list->Find(dep);
+		if (insPos - where <= 0) {
+
+			if (!list->End(where)) {
+				insPos = where + 1;
+			} else {
+				insPos = where;
+			}
 		}
 
-		lastOffset = offset + 1;
+		lastset = offset + 1;
 	}
 
-	SelfModule& mod = list->FindModule(id);
-	if (&mod != &SelfModuleList::_NullModule)
-	{
-		mod._init = init;
-		mod._uninit = uninit;
-		mod._preinit = preinit;
-		mod._depends = depends;
-	}
-	else
-	{
-		SelfModule module;
-		module._id = id;
-		module._init = init;
-		module._uninit = uninit;
-		module._preinit = preinit;
-		module._depends = depends;
-		list->AddModule(module);		
-	}
+	SelfModule module(id);
+	module._dep = depends;
+	module._init = initializer;
+	module._uninit = uninitializer;
+	list->Insert(insPos, module);
+
+	constructor();
+}
+
+DefModule::DefModule(StdString id
+	, StdString depends
+	, SelfFunction initializer
+	, SelfFunction uninitializer)
+{
+	DefModule(id, depends, [](){}, initializer, uninitializer, [](){});
 }
 
 DefModule::~DefModule()
 {
-	_destructor();
+	_destructor._Empty() ? int(5) : _destructor();
 }
-
-/**
- * 模块的空引用
- */
-SelfModule SelfModuleList::_NullModule;
 
 /**
  * 全局唯一的实例
  */
 SelfModuleList* SelfModuleList::_instance = NULL;
-
-SelfModule& SelfModuleList::FindModule(StdString id)
-{
-	for (auto iter = _list.begin(); iter != _list.end(); iter++)
-	{
-		if ((*iter)._id.compare(id) == 0)
-		{
-			return (*iter);
-		}
-	}
-	return _NullModule;
-}
