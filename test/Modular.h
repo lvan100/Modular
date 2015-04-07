@@ -1,4 +1,4 @@
-#ifndef Modular_H
+﻿#ifndef Modular_H
 #define Modular_H
 
 #define Mod_Config

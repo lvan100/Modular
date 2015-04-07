@@ -1,8 +1,8 @@
-#include "SelfModule.h"
+ï»¿#include "SelfModule.h"
 #include "TypeSelect.h"
 
 /**
- * ¶¨Òåµ±Ç°Ä£¿é
+ * å®šä¹‰å½“å‰æ¨¡å—
  */
 static DefModule _Module("SelfModuleList"
 	, ""
@@ -77,6 +77,6 @@ DefModule::~DefModule()
 }
 
 /**
- * È«¾ÖÎ¨Ò»µÄÊµÀı
+ * å…¨å±€å”¯ä¸€çš„å®ä¾‹
  */
 SelfModuleList* SelfModuleList::_instance = NULL;

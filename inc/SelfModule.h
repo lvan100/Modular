@@ -1,4 +1,4 @@
-#ifndef Self_Module_H
+ï»¿#ifndef Self_Module_H
 #define Self_Module_H
 
 #include <vector>
@@ -7,7 +7,7 @@
 using namespace std;
 
 /**
- * ¶¨Òå±ê×¼×Ö·û´®Àà
+ * å®šä¹‰æ ‡å‡†å­—ç¬¦ä¸²ç±»
  */
 #ifndef STD_STRING_TYPE
 #define STD_STRING_TYPE
@@ -15,7 +15,7 @@ typedef std::string StdString;
 #endif
 
 /**
- * ¶¨Òå³õÊ¼»¯¼°·´³õÊ¼»¯º¯ÊıÀàĞÍ
+ * å®šä¹‰åˆå§‹åŒ–åŠååˆå§‹åŒ–å‡½æ•°ç±»å‹
  */
 #ifndef SELF_FUCTION_TYPE
 #define SELF_FUCTION_TYPE
@@ -23,32 +23,32 @@ typedef function<void()> SelfFunction;
 #endif
 
 /**
- * ¶¨ÒåÄ£¿éÀàĞÍ
+ * å®šä¹‰æ¨¡å—ç±»å‹
  */
 struct SelfModule
 {
 	/**
-	 * Ä£¿éµÄID
+	 * æ¨¡å—çš„ID
 	 */
 	StdString _id;
 
 	/**
-	 * Ä£¿éµÄÒÀÀµ£¬²»Í¬µÄÒÀÀµÏîÖ®¼äÓÃ';'·Ö¸î
+	 * æ¨¡å—çš„ä¾èµ–ï¼Œä¸åŒçš„ä¾èµ–é¡¹ä¹‹é—´ç”¨';'åˆ†å‰²
 	 */
 	StdString _dep;
 
 	/**
-	 * ³õÊ¼»¯º¯Êı
+	 * åˆå§‹åŒ–å‡½æ•°
 	 */
 	SelfFunction _init;
 
 	/**
-	 * ·´³õÊ¼»¯º¯Êı
+	 * ååˆå§‹åŒ–å‡½æ•°
 	 */
 	SelfFunction _uninit;
 
 	/**
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 */
 	SelfModule(StdString id)
 		: _id(id)
@@ -56,27 +56,27 @@ struct SelfModule
 };
 
 /**
- * ÉùÃ÷Ä£¿éµÄ¶¨Òå
+ * å£°æ˜æ¨¡å—çš„å®šä¹‰
  */
 class DefModule
 {
 public:
 
 	/*
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @Param id
-	 *        Ä£¿éµÄID
+	 *        æ¨¡å—çš„ID
 	 * @Param depends
-	 *        Ä£¿éµÄÒÀÀµ
+	 *        æ¨¡å—çš„ä¾èµ–
 	 * @Param constructor
-	 *        Ä£¿éµÄ¹¹Ôìº¯Êı
+	 *        æ¨¡å—çš„æ„é€ å‡½æ•°
 	 * @Param initializer
-	 *        Ä£¿éµÄ³õÊ¼»¯º¯Êı
+	 *        æ¨¡å—çš„åˆå§‹åŒ–å‡½æ•°
 	 * @Param uninitializer
-	 *        Ä£¿éµÄ·´³õÊ¼»¯º¯Êı
+	 *        æ¨¡å—çš„ååˆå§‹åŒ–å‡½æ•°
 	 * @Param destructor
-	 *        Ä£¿éµÄÎö¹¹º¯Êı
+	 *        æ¨¡å—çš„ææ„å‡½æ•°
 	 */
 	DefModule(StdString id
 		, StdString depends
@@ -86,16 +86,16 @@ public:
 		, SelfFunction destructor);
 
 	/*
-	 * ¹¹Ôìº¯Êı
+	 * æ„é€ å‡½æ•°
 	 * 
 	 * @Param id
-	 *        Ä£¿éµÄID
+	 *        æ¨¡å—çš„ID
 	 * @Param depends
-	 *        Ä£¿éµÄÒÀÀµ
+	 *        æ¨¡å—çš„ä¾èµ–
 	 * @Param initializer
-	 *        Ä£¿éµÄ³õÊ¼»¯º¯Êı
+	 *        æ¨¡å—çš„åˆå§‹åŒ–å‡½æ•°
 	 * @Param uninitializer
-	 *        Ä£¿éµÄ·´³õÊ¼»¯º¯Êı
+	 *        æ¨¡å—çš„ååˆå§‹åŒ–å‡½æ•°
 	 */
 	DefModule(StdString id
 		, StdString depends
@@ -103,33 +103,33 @@ public:
 		, SelfFunction uninitializer);
 
 	/**
-	 * Îö¹¹º¯Êı
+	 * ææ„å‡½æ•°
 	 */
 	~DefModule();
 
 protected:
 	/**
-	 * Îö¹¹º¯Êı
+	 * ææ„å‡½æ•°
 	 */
 	SelfFunction _destructor;
 };
 
 /**
- * ÁĞ±íË÷ÒıÀàĞÍ
+ * åˆ—è¡¨ç´¢å¼•ç±»å‹
  */
 typedef vector<SelfModule>::iterator ModuleWhere;
 
 /**
- * Ä£¿éÁĞ±í
+ * æ¨¡å—åˆ—è¡¨
  */
 class SelfModuleList
 {
 public:
 
 	/**
-	 * »ñÈ¡Î¨Ò»ÊµÀı
+	 * è·å–å”¯ä¸€å®ä¾‹
 	 * 
-	 * @Return ·µ»ØÈ«¾ÖÎ¨Ò»µÄÊµÀı
+	 * @Return è¿”å›å…¨å±€å”¯ä¸€çš„å®ä¾‹
 	 */
 	static SelfModuleList* GetInstance()
 	{
@@ -147,7 +147,7 @@ public:
 	}
 
 	/**
-	 * É¾³ıÎ¨Ò»ÊµÀı
+	 * åˆ é™¤å”¯ä¸€å®ä¾‹
 	 */
 	static void DelInstance()
 	{
@@ -161,7 +161,7 @@ public:
 public:
 
 	/**
-	 * ³õÊ¼»¯º¯Êı
+	 * åˆå§‹åŒ–å‡½æ•°
 	 */
 	void Inits()
 	{
@@ -172,7 +172,7 @@ public:
 	}
 
 	/**
-	 * ·´³õÊ¼»¯º¯Êı
+	 * ååˆå§‹åŒ–å‡½æ•°
 	 */
 	void Uninits()
 	{
@@ -183,11 +183,11 @@ public:
 	}
 
 	/**
-	 * ²éÕÒÄ£¿é
+	 * æŸ¥æ‰¾æ¨¡å—
 	 * 
 	 * @Param id
-	 *        ´ı²éÕÒµÄÄ£¿éµÄID
-	 * @Return ·µ»Ø²éÕÒµ½µÄÄ£¿éÎ»ÖÃ
+	 *        å¾…æŸ¥æ‰¾çš„æ¨¡å—çš„ID
+	 * @Return è¿”å›æŸ¥æ‰¾åˆ°çš„æ¨¡å—ä½ç½®
 	 */
 	ModuleWhere Find(StdString id)
 	{
@@ -205,13 +205,13 @@ public:
 	}
 
 	/**
-	 * ²åÈëÄ£¿éµ½Ö¸¶¨Î»ÖÃ
+	 * æ’å…¥æ¨¡å—åˆ°æŒ‡å®šä½ç½®
 	 * 
 	 * @Param where
-	 *        ²åÈëÎ»ÖÃ
+	 *        æ’å…¥ä½ç½®
 	 * @Param module
-	 *        Ä£¿é¶ÔÏó
-	 * @return ·µ»Ø²åÈëÎ»ÖÃ
+	 *        æ¨¡å—å¯¹è±¡
+	 * @return è¿”å›æ’å…¥ä½ç½®
 	 */
 	ModuleWhere Insert(ModuleWhere where, SelfModule module)
 	{
@@ -219,9 +219,9 @@ public:
 	}
 
 	/*
-	 * »ñÈ¡Ä£¿éÁĞ±í¿ªÊ¼Î»ÖÃ
+	 * è·å–æ¨¡å—åˆ—è¡¨å¼€å§‹ä½ç½®
 	 * 
-	 * @return ·µ»ØÁĞ±í¿ªÊ¼Î»ÖÃ
+	 * @return è¿”å›åˆ—è¡¨å¼€å§‹ä½ç½®
 	 */
 	ModuleWhere Begin()
 	{
@@ -229,11 +229,11 @@ public:
 	}
 
 	/**
-	 * Ä£¿éÎ»ÖÃÊÇ·ñÎªÁĞ±íÎ²¶Ë
+	 * æ¨¡å—ä½ç½®æ˜¯å¦ä¸ºåˆ—è¡¨å°¾ç«¯
 	 * 
 	 * @Param where
-	 *        ²éÕÒÎ»ÖÃ
-	 * @return Èç¹ûÊÇÁĞ±íÎ²¶Ë·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+	 *        æŸ¥æ‰¾ä½ç½®
+	 * @return å¦‚æœæ˜¯åˆ—è¡¨å°¾ç«¯è¿”å›trueï¼Œå¦åˆ™è¿”å›falseã€‚
 	 */
 	bool End(ModuleWhere where)
 	{
@@ -242,7 +242,7 @@ public:
 
 protected:
 	/**
-	 * Ä£¿éÁĞ±í
+	 * æ¨¡å—åˆ—è¡¨
 	 */
 	vector<SelfModule> _list;
 
@@ -252,7 +252,7 @@ protected:
 
 private:
 	/**
-	 * È«¾ÖÎ¨Ò»µÄÊµÀı
+	 * å…¨å±€å”¯ä¸€çš„å®ä¾‹
 	 */
 	static SelfModuleList* _instance;
 };

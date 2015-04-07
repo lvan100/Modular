@@ -1,9 +1,9 @@
-#include "SelfModule.h"
+﻿#include "SelfModule.h"
 #include "TypeSelect.h"
 #include "Modular.h"
 
 /**
- * ���嵱ǰģ��
+ * 定义当前模块
  */
 static DefModule _Module("ModuleA"
 	,""
