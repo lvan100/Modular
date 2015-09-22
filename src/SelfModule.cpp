@@ -67,13 +67,22 @@ DefModule::DefModule(StdString id
 	, StdString depends
 	, SelfFunction initializer
 	, SelfFunction uninitializer)
+#if _MSC_VER >= 1900
+	: DefModule(id, depends, []() {}, initializer, uninitializer, []() {})
+#endif
 {
+#if _MSC_VER < 1900
 	DefModule(id, depends, [](){}, initializer, uninitializer, [](){});
+#endif
 }
 
 DefModule::~DefModule()
 {
+#if _MSC_VER >= 1900
+	(_destructor.target<SelfFunction>() != nullptr) ? int(5) : _destructor();
+#else
 	_destructor._Empty() ? int(5) : _destructor();
+#endif
 }
 
 /**
